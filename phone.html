@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PROJECT K - Phone Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f0f4ff, #f9ecff);
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .phone-container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 40px;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: fadeInUp 1.2s ease forwards;
+      opacity: 0;
+    }
+
+    .phone-container h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #6c63ff;
+    }
+
+    button {
+      background-color: #6c63ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #554fd8;
+    }
+
+    #recaptcha-container {
+      margin-top: 15px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #6c63ff;
+      color: white;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background: #554fd8;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+
+  <div class="phone-container" id="form-box">
+    <h2>📱 Phone Number Login</h2>
+
+    <input type="tel" id="phoneNumber" placeholder="+91XXXXXXXXXX" />
+    <div id="recaptcha-container"></div>
+    <button onclick="sendOTP()">Send OTP</button>
+
+    <div id="otp-box" style="display:none;">
+      <inpu

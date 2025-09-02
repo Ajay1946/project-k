@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Redirecting to Google...</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f4ff, #f9ecff);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    h2 {
+      color: #333;
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      animation: slideDown 1s ease-in-out;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ccc;
+      border-top: 6px solid #4a90e2;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h2>Redirecting to Google Sign-In...</h2>
+  <div class="spinner"></div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnhihpmj9sglR29eCgdlrdQgj3lOfcm1Y",
+      authDomain: "project-k-902ab.firebaseapp.com",
+      projectId: "project-k-902ab",
+      storageBucket: "project-k-902ab.appspot.com",
+      messagingSenderId: "1039644553729",
+      appId: "1:1039644553729:web:7a4a7ba100ec040fc38600",
+      measurementId: "G-GBZB5LR6KL"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    // Handle redirect
+    auth.getRedirectResult()
+      .then((result) => {
+        if (result.user) {
+          alert("✅ Welcome " + result.user.displayName);
+          window.location.href = "index.html";
+        } else {
+          auth.signInWithRedirect(provider);
+        }
+      })
+      .catch((error) => {
+        console.error("Redirect error:", error);
+        alert("❌ Sign-In failed: " + error.message);
+        window.location.href = "index.html";
+      });
+  </script>
+</body>
+</html>

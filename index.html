@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PROJECT K Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="intro-screen" id="intro">
+    <div class="intro-text">HELLO, Welcome!<br>To PROJECT K</div>
+    <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#b3e5fc" fill-opacity="1" d="M0,64L40,74.7C80,85,160,107,240,122.7C320,139,400,149,480,144C560,139,640,117,720,122.7C800,128,880,160,960,160C1040,160,1120,128,1200,117.3C1280,107,1360,117,1400,122.7L1440,128L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+    </svg>
+  </div>
+
+  <div class="bg-icons">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon" style="left: 5%; top: 10%; width: 160px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon" style="left: 75%; top: 60%; width: 180px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="icon" style="left: 20%; top: 40%; width: 150px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="icon" style="left: 80%; top: 20%; width: 170px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="icon" style="left: 35%; top: 20%; width: 160px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="icon" style="left: 85%; top: 75%; width: 180px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" class="icon" style="left: 50%; top: 70%; width: 170px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" class="icon" style="left: 60%; top: 25%; width: 150px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/942/942751.png" class="icon" style="left: 40%; top: 45%; width: 220px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/942/942751.png" class="icon" style="left: 10%; top: 70%; width: 180px;">
+  </div>
+
+  <div class="title">PROJECT K</div>
+
+  <div class="login-container" id="login">
+    <h2>🔐 Login to Your Account</h2>
+    <form onsubmit="event.preventDefault(); login();">
+      <input type="email" id="email" placeholder="Email" required />
+      <div class="password-wrapper">
+        <input type="password" id="password" placeholder="Password" required style="padding-right: 40px;" />
+        <span class="toggle-eye" onclick="togglePassword()" id="toggle-eye">
+          <i class="fa-solid fa-eye"></i>
+        </span>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+
+    <button class="google-btn" onclick="googleSignup()">
+      <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" class="google-icon" />
+      Sign up with Google
+    </button>
+
+    <button class="google-btn" onclick="phoneSignup()">
+      <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" class="google-icon" />
+      Sign up with Phone Number
+    </button>
+
+    <button class="google-btn" onclick="microsoftSignup()">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="google-icon" />
+      Sign up with Microsoft
+    </button>
+  </div>
+
+
+  <audio id="water-drop-sound" src="https://www.soundjay.com/button/sounds/button-16.mp3" preload="auto"></audio>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnhihpmj9sglR29eCgdlrdQgj3lOfcm1Y",
+      authDomain: "project-k-902ab.firebaseapp.com",
+      projectId: "project-k-902ab",
+      storageBucket: "project-k-902ab.firebasestorage.app",
+      messagingSenderId: "1039644553729",
+      appId: "1:1039644553729:web:7a4a7ba100ec040fc38600",
+      measurementId: "G-GBZB5LR6KL"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function googleSignup() {
+      window.location.href = "google.html";
+    }
+
+    function phoneSignup() {
+      window.location.href = "phone.html";
+    }
+
+    function microsoftSignup() {
+      alert("Microsoft Sign-In requires Azure setup. Not yet implemented.");
+    }
+
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!email || !password) {
+        alert("Please enter email and password.");
+        return;
+      }
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          document.body.innerHTML = "<h2 style='text-align:center; padding-top:50px;'>blank.html</h2>";
+        })
+        .catch((error) => {
+          alert("Login failed: " + error.message);
+        });
+    }
+
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const toggleIcon = document.getElementById('toggle-eye').querySelector('i');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const sound = document.getElementById("water-drop-sound");
+      if (sound) sound.play().catch(() => {}); 
+    });
+
+    setTimeout(() => {
+      document.getElementById("login").classList.add("show");
+    }, 3500);
+  </script>
+</body>
+</html>
